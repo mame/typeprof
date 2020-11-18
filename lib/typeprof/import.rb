@@ -100,6 +100,7 @@ module TypeProf
       json = {}
 
       each_class_decl do |name, decls|
+        p name
         klass = conv_type_name(name)
         super_class_name, super_class_args = get_super_class(name, decls)
         if super_class_name
@@ -473,6 +474,7 @@ module TypeProf
 
     def import(explicit = false)
       classes = @json[:classes].map do |classpath, cdef|
+        p classpath
         type_params = cdef[:type_params]
         superclass, superclass_type_args = cdef[:superclass]
         members = cdef[:members]
