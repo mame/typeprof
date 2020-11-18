@@ -12,7 +12,7 @@ module TypeProf
         @builtin_env = RBS::Environment.new
 
         loader = RBS::EnvironmentLoader.new
-        new_decls = loader.load(env: @builtin_env).map {|decl,| decl }
+        new_decls = loader.load(env: @builtin_env).map {|decl,| p decl.name; decl }
         @builtin_env_json = load_rbs(@builtin_env, new_decls)
       end
 
@@ -100,7 +100,6 @@ module TypeProf
       json = {}
 
       each_class_decl do |name, decls|
-        p name
         klass = conv_type_name(name)
         super_class_name, super_class_args = get_super_class(name, decls)
         if super_class_name
@@ -474,7 +473,6 @@ module TypeProf
 
     def import(explicit = false)
       classes = @json[:classes].map do |classpath, cdef|
-        p classpath
         type_params = cdef[:type_params]
         superclass, superclass_type_args = cdef[:superclass]
         members = cdef[:members]
